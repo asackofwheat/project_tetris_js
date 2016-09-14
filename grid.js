@@ -16,10 +16,15 @@ var gridModel = {
   updateGrid: function(coords) {
     var col = this.gridArray[coords[0]];
     console.log(this.gridArray);
+    // Search from the end of the column to the start.
+    // See if any of the cells are undefined. If they are,
+    // set the cell to true. Then return.
+    // A 'true' cell will have the 'old-block' CSS class.
     for (var i = col.length - 1; i >= 0; i--) {
       if (!col[i]) {
         col[i] = true;
-        return;
+        gridModel.checkRow([0,i]);
+        break;
       }
     }
   },
