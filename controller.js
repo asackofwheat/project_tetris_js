@@ -17,7 +17,7 @@ var controller = {
         gridModel.checkRow(coords);
       }
       loop++;
-    }, 1000);
+    }, 200);
   },
 
   movePiece: function(keycode) {

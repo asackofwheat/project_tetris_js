@@ -23,10 +23,10 @@ var gridModel = {
     }
   },
 
-  checkRow: function(coord){
+  checkRow: function(coords){
     var fulls = [];
     for(var i = 0; i < this.height; i++){
-      if(this.fullRow(coord[1])){
+      if(this.fullRow(coords[1])){
         this.removeRow(i)
       }
     }
@@ -42,9 +42,10 @@ var gridModel = {
   },
 
   removeRow: function(rowNum){
+
     for(var k = 0; k < this.width; k++){
-      var temp = this.gridArray[k].splice(0, rowNum);
-      this.gridArray = temp.concat(this.gridArray[k].slice(1));
+      var temp = this.gridArray[k].splice(rowNum);
+      this.gridArray[k] = temp.concat(this.gridArray[k].slice(1));
     }
   }
 };
