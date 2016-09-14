@@ -23,10 +23,13 @@ var gameModel = {
 
   updateGame: function(grid) {
     var coords = this.getCoords();
-    // if (gameModel.checkTouch(grid) || coords[1] === 19) {
-    //   this.currentBlock = new Block(4,0);
-    //   return coords;
-    // }
+    var lowestRowTouch = gameModel.currentBlock.blocks.some(function(block) {
+      return block.yCoord === 19;
+    });
+    if (gameModel.checkTouch(grid) || lowestRowTouch) {
+      this.currentBlock = new Block(4,0);
+      return coords;
+    }
     // gameModel.currentBlock.yCoord += 1;
     gameModel.currentBlock.blocks.forEach(function(block) {
       block.yCoord += 1;
@@ -35,11 +38,13 @@ var gameModel = {
   },
 
   checkTouch: function(grid) {
-    var x = gameModel.currentBlock.xCoord;
-    var y = gameModel.currentBlock.yCoord;
-    if (grid[x][y+1]) {
-      return true;
-    }
+    gameModel.currentBlock.blocks.forEach(function(block) {
+      var x = block.xCoord;
+      var y = block.yCoord;
+      if (grid[x][y+1]) {
+        return true;
+      }
+    });
     return false;
   },
 

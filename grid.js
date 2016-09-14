@@ -14,6 +14,7 @@ var gridModel = {
   },
 
   updateGrid: function(coords) {
+    console.log(coords);
     var col = this.gridArray[coords[0]];
     console.log(this.gridArray);
     // Search from the end of the column to the start.
