@@ -18,7 +18,7 @@ var gameModel = {
   },
 
   getCoords: function(){
-    return [gameModel.currentBlock.xCoord, gameModel.currentBlock.yCoord];
+    return gameModel.currentBlock.blocks;
   },
 
   updateGame: function(grid) {
@@ -27,7 +27,8 @@ var gameModel = {
       return block.yCoord === 19;
     });
     if (gameModel.checkTouch(grid) || lowestRowTouch) {
-      this.currentBlock = new Block(4,0);
+      this.currentBlock = new Piece(4,0);
+      this.populatePiece('square');
       return coords;
     }
     // gameModel.currentBlock.yCoord += 1;
