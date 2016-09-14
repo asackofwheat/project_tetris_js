@@ -15,6 +15,7 @@ var gridModel = {
 
   updateGrid: function(coords) {
     var col = this.gridArray[coords[0]];
+    console.log(this.gridArray);
     for (var i = col.length - 1; i >= 0; i--) {
       if (!col[i]) {
         col[i] = true;
@@ -27,7 +28,7 @@ var gridModel = {
     var fulls = [];
     for(var i = 0; i < this.height; i++){
       if(this.fullRow(coords[1])){
-        this.removeRow(i)
+        this.removeRow(i);
       }
     }
   },
@@ -44,8 +45,9 @@ var gridModel = {
   removeRow: function(rowNum){
 
     for(var k = 0; k < this.width; k++){
-      var temp = this.gridArray[k].splice(rowNum);
-      this.gridArray[k] = temp.concat(this.gridArray[k].slice(1));
+      var temp = this.gridArray[k].splice(rowNum,1);
+      this.gridArray[k].unshift(undefined);
+      // this.gridArray[k] = temp.concat(this.gridArray[k].slice(1));
     }
   }
 };
