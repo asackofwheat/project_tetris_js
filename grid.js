@@ -14,10 +14,8 @@ var gridModel = {
   },
 
   updateGrid: function(blocks) {
-    console.log(blocks);
     blocks.forEach(function(block) {
       var col = gridModel.gridArray[block.xCoord];
-      console.log(gridModel.gridArray);
       // Search from the end of the column to the start.
       // See if any of the cells are undefined. If they are,
       // set the cell to true. Then return.

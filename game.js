@@ -66,18 +66,19 @@ var gameModel = {
       if (keycode === 39) {
         block.xCoord += 1;
       }
-      // if (keycode === 40) {
-      //   return gameModel.setPiece(this.currentBlock);
-      // }
-      return false;
     });
+    if (keycode === 40) {
+      // var blocks = gameModel.currentBlock.blocks;
+      // return blocks.map(function(block) {
+      //   gameModel.setPiece(block);
+      // });
+      return gameModel.setPiece(gameModel.currentBlock);
+    }
+    return false;
   },
 
   setPiece: function(block) {
-    var xVal = block.xCoord;
-    var yVal = block.yCoord;
-    this.currentBlock = new Block(4,0);
-    return [xVal, yVal];
+    return this.currentBlock.blocks;
   }
 };
 

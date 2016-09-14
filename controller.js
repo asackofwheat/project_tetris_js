@@ -21,9 +21,12 @@ var controller = {
   },
 
   movePiece: function(keycode) {
-    var coords = gameModel.updatePieceCoords(keycode);
-    if (!!coords) {
-      gridModel.updateGrid(coords);
+    var blocks = gameModel.updatePieceCoords(keycode);
+    console.log(blocks);
+    if (!!blocks) {
+      gridModel.updateGrid(blocks);
+      gameModel.currentBlock = new Piece(4,0);
+      gameModel.populatePiece('square');
     }
   }
 
