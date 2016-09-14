@@ -3,9 +3,16 @@ function Block(x, y) {
   this.yCoord = y;
 };
 
+function Piece(x,y) {
+
+  this.blocks = [new Block(x,y)];
+
+};
+
 var gameModel = {
   init: function() {
-    this.currentBlock = new Block(4,0);
+    this.currentBlock = new Piece(4,0);
+    this.populatePiece("square");
     this.turn = 0;
     this.score = 0;
   },
@@ -33,6 +40,15 @@ var gameModel = {
     return false;
   },
 
+  populatePiece: function(type) {
+    var xCoord = this.currentBlock.blocks[0].xCoord
+    var yCoord = this.currentBlock.blocks[0].yCoord
+    TYPES[type].forEach(function(ele) {
+      var block = new Block(xCoord + ele[0], yCoord + ele[1]);
+      gameModel.currentBlock.blocks.push(block);
+    })
+  },
+
   updatePieceCoords: function(keycode) {
     if (keycode === 37) {
       this.currentBlock.xCoord -= 1;
@@ -52,4 +68,8 @@ var gameModel = {
     this.currentBlock = new Block(4,0);
     return [xVal, yVal];
   }
+};
+
+var TYPES = {
+  square: [[1,0], [0,1], [1,1]]
 };

@@ -8,7 +8,7 @@ var controller = {
   gameLoop: function(){
     var loop = 1;
     setInterval(function() {
-      view.render(gridModel.width, gridModel.height, gameModel.getCoords(), gridModel.gridArray);
+      view.render(gridModel.width, gridModel.height, gameModel.currentBlock.blocks, gridModel.gridArray);
       if (loop % 2 === 0) {
         var coords = gameModel.updateGame(gridModel.gridArray);
         if (!!coords) {

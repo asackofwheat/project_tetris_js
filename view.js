@@ -3,7 +3,7 @@ var view = {
     this.addKeyboardListner();
   },
 
-  render: function(width, height, blockCoords, gridArray) {
+  render: function(width, height, currentBlocks, gridArray) {
     $('#grid').html('');
     for(var i = 0; i < height; i++){
       var $row = $('<div>').addClass('row');
@@ -13,9 +13,11 @@ var view = {
                     .addClass('block')
                     .attr('data-x', j)
                     .attr('data-y', i);
-        if (j === blockCoords[0] && i === blockCoords[1]){
-          $block.addClass('current-block');
-        }
+        currentBlocks.forEach(function(ele) {
+          if (j === ele.xCoord && i === ele.yCoord) {
+            $block.addClass('current-block');
+          }
+        })
         if (gridArray[j][i]) {
           $block.addClass('old-block');
         }
