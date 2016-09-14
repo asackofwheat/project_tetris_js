@@ -17,7 +17,7 @@ var view = {
           if (j === ele.xCoord && i === ele.yCoord) {
             $block.addClass('current-block');
           }
-        })
+        });
         if (gridArray[j][i]) {
           $block.addClass('old-block');
         }

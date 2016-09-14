@@ -1,13 +1,13 @@
 function Block(x, y) {
   this.xCoord = x;
   this.yCoord = y;
-};
+}
 
 function Piece(x,y) {
 
   this.blocks = [new Block(x,y)];
 
-};
+}
 
 var gameModel = {
   init: function() {
@@ -23,11 +23,14 @@ var gameModel = {
 
   updateGame: function(grid) {
     var coords = this.getCoords();
-    if (gameModel.checkTouch(grid) || coords[1] === 19) {
-      this.currentBlock = new Block(4,0);
-      return coords;
-    }
-    gameModel.currentBlock.yCoord += 1;
+    // if (gameModel.checkTouch(grid) || coords[1] === 19) {
+    //   this.currentBlock = new Block(4,0);
+    //   return coords;
+    // }
+    // gameModel.currentBlock.yCoord += 1;
+    gameModel.currentBlock.blocks.forEach(function(block) {
+      block.yCoord += 1;
+    });
     return false;
   },
 
@@ -41,25 +44,27 @@ var gameModel = {
   },
 
   populatePiece: function(type) {
-    var xCoord = this.currentBlock.blocks[0].xCoord
-    var yCoord = this.currentBlock.blocks[0].yCoord
+    var xCoord = this.currentBlock.blocks[0].xCoord;
+    var yCoord = this.currentBlock.blocks[0].yCoord;
     TYPES[type].forEach(function(ele) {
       var block = new Block(xCoord + ele[0], yCoord + ele[1]);
       gameModel.currentBlock.blocks.push(block);
-    })
+    });
   },
 
   updatePieceCoords: function(keycode) {
-    if (keycode === 37) {
-      this.currentBlock.xCoord -= 1;
-    }
-    if (keycode === 39) {
-      this.currentBlock.xCoord += 1;
-    }
-    if (keycode === 40) {
-      return gameModel.setPiece(this.currentBlock);
-    }
-    return false;
+    this.currentBlock.blocks.forEach(function(block) {
+      if (keycode === 37) {
+        block.xCoord -= 1;
+      }
+      if (keycode === 39) {
+        block.xCoord += 1;
+      }
+      // if (keycode === 40) {
+      //   return gameModel.setPiece(this.currentBlock);
+      // }
+      return false;
+    });
   },
 
   setPiece: function(block) {
