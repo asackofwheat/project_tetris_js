@@ -5,6 +5,7 @@ var view = {
 
   render: function(width, height, currentBlocks, gridArray) {
     $('#grid').html('');
+    $('#score').html('Rows cleared: ' + gameModel.score);
     for(var i = 0; i < height; i++){
       var $row = $('<div>').addClass('row');
       $('#grid').append($row);

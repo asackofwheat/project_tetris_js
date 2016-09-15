@@ -16,25 +16,43 @@ var gridModel = {
   updateGrid: function(blocks) {
     blocks.forEach(function(block) {
       var col = gridModel.gridArray[block.xCoord];
-      // Search from the end of the column to the start.
-      // See if any of the cells are undefined. If they are,
-      // set the cell to true. Then return.
-      // A 'true' cell will have the 'old-block' CSS class.
-      for (var i = col.length - 1; i >= 0; i--) {
-        if (!col[i]) {
-          col[i] = true;
-          gridModel.checkRow([0,i]);
-          break;
-        }
-      }
+      
+      // for (var i = col.length - 1; i >= 0; i--) {
+      //   if (!col[i]) {
+      //     col[i] = true;
+      //     gridModel.checkRow([0,i]);
+      //     break;
+      //   }
+      // }
+
+      col[block.yCoord] = true;
     });
+
+    this.checkRow(this.getPieceRows(blocks));
   },
 
-  checkRow: function(coords){
-    var fulls = [];
-    for(var i = 0; i < this.height; i++){
-      if(this.fullRow(coords[1])){
-        this.removeRow(i);
+  getPieceRows: function(blocks) {
+    rows = [];
+    for (var i = 0; i < blocks.length; i++) {
+      rows.push(blocks[i].yCoord);
+    }
+    return this.getUniqueRows(rows);
+  },
+
+  getUniqueRows: function(rows) {
+    var uniqueRows = [];
+    $.each(rows, function(i, el){
+      if($.inArray(el, uniqueRows) === -1) {
+        uniqueRows.push(el)
+      }
+    });
+    return uniqueRows;
+  },
+
+  checkRow: function(rows){
+    for(var i = 0; i < rows.length; i++){
+      if(this.fullRow(rows[i])){
+        this.removeRow(rows[i]);
       }
     }
   },
@@ -49,7 +67,7 @@ var gridModel = {
   },
 
   removeRow: function(rowNum){
-
+    gameModel.score++;
     for(var k = 0; k < this.width; k++){
       var temp = this.gridArray[k].splice(rowNum,1);
       this.gridArray[k].unshift(undefined);
